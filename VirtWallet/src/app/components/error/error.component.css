@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.signupFrm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* height: auto; */
+  background-color: #151e3fff;
+}
+
+.form {
+  background-color: indianred;
+  width: 600px;
+  border-radius: 8px;
+  padding: 20px 40px;
+  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.2);
+}
+
+.title {
+  color: white;;
+  text-align: left;
+  font-size: 35px;
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+/* Style the inputs */
+.input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #dadce0;
+  border-radius: 7px;
+  font-size: 16px;
+  padding: 0 20px;
+  outline: none;
+  background: none;
+  z-index: 1;
+}
+
+a{
+  color: white;
+}
+a:hover{
+  color: #f2f3d9ff;
+}

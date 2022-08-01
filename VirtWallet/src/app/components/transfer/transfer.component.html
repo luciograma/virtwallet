@@ -1,0 +1,48 @@
+<div class="signupFrm">
+  <form [formGroup]="transferForm" class="form" (ngSubmit)="transferir()">
+    <h2 class="title2">Enviar dinero</h2>
+    <p id="warning"></p>
+    <div *ngIf="transferForm.controls['cbu'].errors && transferForm.controls['cbu'].dirty">
+      <p class="warning" *ngIf="transferForm.controls['cbu'].errors['minlength']">Ingrese un CBU válido</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="text" id="cbu" class="input form-control" placeholder="CBU destino" formControlName="cbu">
+        <label for="cbu" class="label">CBU destino</label>
+      </div>
+    </div>
+    <div *ngIf="transferForm.controls['alias'].errors && transferForm.controls['alias'].dirty">
+      <p class="warning" *ngIf="transferForm.controls['alias'].errors['minlength']">Ingrese un ALIAS válido</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="text" id="alias" class="input form-control" placeholder="Alias destino" formControlName="alias">
+        <label for="alias" class="label">Alias destino</label>
+      </div>
+    </div>
+    <div *ngIf="transferForm.controls['importe'].errors && transferForm.controls['importe'].dirty">
+      <p class="warning" *ngIf="transferForm.controls['importe'].errors['required']">Campo obligatorio</p>
+      <p class="warning" *ngIf="transferForm.controls['importe'].errors['min']">Ingrese un importe válido</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="number" id="importe" class="input form-control" placeholder="Importe" formControlName="importe">
+        <label for="importe" class="label">Importe</label>
+      </div>
+    </div>
+    <div *ngIf="transferForm.controls['concepto'].errors && transferForm.controls['concepto'].dirty">
+      <p class="warning" *ngIf="transferForm.controls['concepto'].errors['maxlength']">El detalle de la operación debe ser más corto</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="text" id="concepto" class="input form-control" placeholder="concepto" formControlName="concepto">
+        <label for="concepto" class="label">Concepto</label>
+      </div>
+    </div>
+    <div class="loginContainer">
+<!--      <input type="submit" class="submitBtn" (click)="transferir()" value="Transferir">-->
+      <button class="submitBtn" (click)="transferir()">Transferir</button>
+    </div>
+    <p><a routerLinkActive="active" routerLink="home" (click)="volverHome()">Volver</a> a inicio</p>
+  </form>
+</div>

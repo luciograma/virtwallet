@@ -1,0 +1,66 @@
+<div class="navbar">
+  <div class="container flex">
+      <img src="https://icongr.am/entypo/wallet.svg?size=128&color=dc9e82" alt="Logo VirtWallett" height="45">
+    <nav>
+      <ul>
+        <li class="nav"><a class="outline" routerLinkActive="active" routerLink="transfer" (click)="transferir()">Transferir</a></li>
+        <li class="nav"><a class="outline" routerLinkActive="active" routerLink="login" (click)="cerrarSesion()">Cerrar Sesion</a></li>
+        <!--        <li class="nav" *ngIf="logged"><a class="outline" routerLinkActive="active" routerLink="/login">Cerrar Sesion</a></li>-->
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<section class="showcase">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="showcase-text">
+          <h1>Caja de ahorro en pesos</h1>
+          <p class="supporting-text"> Saldo: ${{cuenta.saldo?.toString()}}.-</p>
+        </div>
+        <hr>
+        <div class="showcase-detail">
+          <p class="little-info">CBU: {{cuenta.cbu}}<br>
+            ALIAS: {{cuenta.alias}}<br>
+            TITULAR: {{cuenta.nombre + ' '+ cuenta.apellido}}<br>
+            DNI: {{cuenta.dni}}<br>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-sm table-responsive">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Nro</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Importe</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let transaccion of transacciones">
+            <th scope="row">{{transaccion.fecha}}</th>
+            <td>{{transaccion.id}}</td>
+            <td>{{transaccion.concepto}}</td>
+            <td>${{transaccion.importe}},-</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container grid-3">
+    <h1>VirtWallett</h1>
+    <p>Proyecto ASJ<br>Copyright &copy; 2022</p>
+    <div class="profiles">
+      <a href=""><em class="fab fa-twitter fa-2x"></em></a>
+      <a href=""><em class="fab fa-instagram fa-2x"></em></a>
+      <a href=""><em class="fab fa-facebook fa-2x"></em></a>
+      <a href=""><em class="fab fa-whatsapp fa-2x"></em></a>
+    </div>
+  </div>
+</footer>

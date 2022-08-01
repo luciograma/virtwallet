@@ -1,0 +1,67 @@
+<div class="signupFrm">
+  <form [formGroup]="registerForm" class="form" (ngSubmit)="submitForm()">
+    <h1 class="title">Registrate</h1>
+    <div class="warning" *ngIf="registerForm.controls['dni'].errors && registerForm.controls['dni'].dirty">
+      <p class="warning" *ngIf="registerForm.controls['dni'].errors['required']">Campo obligatorio</p>
+      <p class="warning" *ngIf="registerForm.controls['dni'].errors['minlength']">Ingrese un DNI valido</p>
+      <p class="warning" *ngIf="registerForm.controls['dni'].errors['maxlength']">Ingrese un DNI valido</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="text" id="dni" class="input form-control" placeholder="Ingresa tu DNI" formControlName="dni">
+        <label for="dni" class="label">DNI</label>
+      </div>
+    </div>
+    <div class="warning" *ngIf="registerForm.controls['nombre'].errors && registerForm.controls['nombre'].dirty">
+      <p class="warning" *ngIf="registerForm.controls['nombre'].errors['required']">Campo obligatorio</p>
+      <p class="warning" *ngIf="registerForm.controls['nombre'].errors['minlength']">Nombre muy corto</p>
+      <p class="warning" *ngIf="registerForm.controls['nombre'].errors['maxlength']">Nombre muy largo</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="text" id="nombre" class="input form-control" placeholder="Ingresa tu nombre"
+               formControlName="nombre">
+        <label for="nombre" class="label">Nombre</label>
+      </div>
+    </div>
+    <div class="warning" *ngIf="registerForm.controls['apellido'].errors && registerForm.controls['apellido'].dirty">
+      <p class="warning" *ngIf="registerForm.controls['apellido'].errors['required']">Campo obligatorio</p>
+      <p class="warning" *ngIf="registerForm.controls['apellido'].errors['minlength']">Apellido muy corto</p>
+      <p class="warning" *ngIf="registerForm.controls['apellido'].errors['maxlength']">Apellido muy largo</p>
+    </div>
+    <div class="form-group"></div>
+    <div class="inputContainer">
+      <input type="text" id="apellido" class="input form-control" placeholder="Ingresa tu apellido"
+             formControlName="apellido">
+      <label for="apellido" class="label">Apellido</label>
+    </div>
+    <div *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].dirty">
+      <p class="warning" *ngIf="registerForm.controls['password'].errors['required']">Campo obligatorio</p>
+      <p class="warning" *ngIf="registerForm.controls['password'].errors['minlenght']">Contraseña muy corta</p>
+      <p class="warning" *ngIf="registerForm.controls['password'].errors['maxlenght']">Contraseña muy larga</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="password" id="password" class="input form-control" placeholder="Ingresa tu password" formControlName="password">
+        <label for="password" class="label">Password</label>
+      </div>
+    </div>
+    <div *ngIf="registerForm.controls['checkPassword'].errors && registerForm.controls['checkPassword'].dirty">
+      <p class="warning" *ngIf="registerForm.controls['checkPassword'].errors['required']">Campo obligatorio</p>
+    </div>
+<!--    <div *ngIf="passwordMatchError">-->
+<!--      <p class="warning">Las contraseñas deben coincidir</p>-->
+<!--    </div>-->
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="password" id="checkPassword" class="input form-control" placeholder="Vuelve a ingresar tu password"
+               formControlName="checkPassword">
+        <label for="checkPassword" class="label">Confirma tu Password</label>
+      </div>
+    </div>
+    <div class="loginContainer">
+      <button class="submitBtn" (click)="registrar()">Registrar</button>
+    </div>
+    <p>¿Ya tienes una cuenta? <a routerLinkActive="active" routerLink="login" (click)="irLogin()">Inicia sesión</a></p>
+  </form>
+</div>

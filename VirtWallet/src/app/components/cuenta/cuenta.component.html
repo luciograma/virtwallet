@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="col-sm table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">DNI</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Saldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cuenta of cuentas">
+          <th scope="row">{{cuenta.dni}}</th>
+          <td>{{cuenta.nombre}}</td>
+          <td>{{cuenta.apellido}}</td>
+          <td>${{cuenta.saldo}},-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn-primary" (click)="irLogin()">Volver al login</button>
+</div>

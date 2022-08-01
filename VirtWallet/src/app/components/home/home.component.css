@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "lato", sans-serif;
+  color: #151e3fff;
+}
+
+/* Centers it, sets a maximum width and makes sure elements can flow past it*/
+.container {
+  margin: 0 auto;
+  max-width: auto;
+  overflow: visible;
+}
+
+/* Sets background color, height and padding*/
+.navbar {
+  background-color: #151e3fff;
+  height: 70px;
+  padding: 0 30px;
+}
+
+/* Sets font size, reduces font-weight, adds margin and line height */
+.navbar h1 {
+  font-size: 30px;
+  font-weight: 300;
+  margin: 10px 0;
+  line-height: 1.2;
+  color: #dc9e82ff;
+}
+
+.navbar .flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.navbar ul {
+  display: flex;
+}
+
+/* Changes the color of both links to antique-brass, adds padding between them and margin as well */
+.navbar a {
+  color: #dc9e82ff;
+  padding: 9px;
+  margin: 0 10px;
+}
+
+.navbar a:hover {
+  color: #f2f3d9ff;
+  border-bottom: 3px solid #f2f3d9ff;
+}
+
+a:link, a:visited, a:active {
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 10px;
+  line-height: 1.2;
+}
+
+hr {
+  width: 85%
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+li {
+  list-style-type: none;
+}
+
+p {
+  /*font-size: 20px;*/
+  margin: 10px ;
+}
+
+/* Centers it, sets a maximum width and makes sure elements can flow past it*/
+.container {
+  margin: 0 auto;
+  max-width: available;
+  overflow: visible;
+}
+
+/* ShowCase Area */
+.showcase {
+  position: relative;
+  min-height: 100%;
+  height: 82vh;
+  padding-top: 100px;
+}
+
+/* Adds margin below the text */
+.showcase p {
+  margin-bottom: 30px;
+}
+
+/* Adds some padding on the form content */
+.showcase-detail {
+  padding-left: 1rem;
+  margin: auto;
+}
+
+.supporting-text {
+  padding-left: 1rem;
+  color:#c16e70ff;
+}
+
+/*
+--space-cadet: #151e3fff;
+--beige: #f2f3d9ff;
+--antique-brass: #dc9e82ff;
+--fuzzy-wuzzy: #c16e70ff;
+*/
+
+
+/* Change typeface and its size */
+.little-info {
+  font-size: 1.2em;
+  font-family: "lato", sans-serif;
+}
+
+@media (max-width: 960px) {
+  .col-sm {
+    grid-template-columns: 100%;
+  }
+}
+
+/* Crear un grid de tres columnas equidistantes. Definir un espaciado de 40px entre ellas */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+/* FOOTER */
+footer {
+  background-color: #151e3fff;
+  padding: 5px 10px;
+  color: #dc9e82ff;
+  bottom: 0;
+  width: 100%;
+}
+
+footer h1{
+  text-align: left;
+  justify-content: center;
+}
+footer p {
+  text-align: right;
+  font-size: 15px;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 100%;
+  }
+}
+
+/* Crear un grid de tres columnas equidistantes. Definir un espaciado de 40px entre ellas */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}

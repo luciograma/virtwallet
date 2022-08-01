@@ -1,0 +1,42 @@
+<div class="signupFrm">
+  <form [formGroup]="loginForm" class="form" (ngSubmit)="login()">
+    <img id="img" src="https://icongr.am/entypo/wallet.svg?size=128&color=151e3f" height="75" alt="Logo BilleterApp">
+    <h1 class="title">VirtWallet</h1>
+    <div class="warning" *ngIf="loginForm.controls['dni'].errors && loginForm.controls['dni'].dirty">
+      <p class="warning" *ngIf="loginForm.controls['dni'].errors['required']">Campo obligatorio</p>
+      <p class="warning" *ngIf="loginForm.controls['dni'].errors['minlength']">Ingrese un DNI valido</p>
+      <p class="warning" *ngIf="loginForm.controls['dni'].errors['maxlength']">Ingrese un DNI valido</p>
+      <p class="warning" *ngIf="loginForm.controls['dni'].errors['validarEspacios']">Ingrese un DNI valido</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="text" id="dni" class="input form-control" placeholder="Ingresa tu Nro. de Documento"
+               formControlName="dni">
+        <label for="dni" class="label">DNI</label>
+      </div>
+    </div>
+    <div class="warning" *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].dirty">
+      <p class="warning" *ngIf="loginForm.controls['password'].errors['required']">Campo obligatorio</p>
+      <p class="warning" *ngIf="loginForm.controls['password'].errors['minlenght']">Contraseña muy corta</p>
+      <p class="warning" *ngIf="loginForm.controls['password'].errors['maxlenght']">Contraseña muy larga</p>
+    </div>
+    <div class="form-group">
+      <div class="inputContainer">
+        <input type="password" id="password" class="input form-control" placeholder="Ingresa tu password"
+               formControlName="password">
+        <label for="password" class="label">Password</label>
+      </div>
+    </div>
+    <div class="loginContainer">
+      <button type="submit" class="submitBtn" value="Inicia sesión" (click)="login()">Inicia sesión</button>
+    </div>
+<!--    <div class="loginContainer">-->
+<!--      <button type="button" class="submitBtn" (click)="verCuentas()">Ver cuentas</button>-->
+<!--    </div>-->
+<!--    <div class="loginContainer">-->
+<!--      <button type="button" class="submitBtn" (click)="verTransacciones()">Ver transacciones</button>-->
+<!--    </div>-->
+    <p>¿Aún no estás registrado? <a routerLinkActive="active" routerLink="register" (click)="irRegister()">Creá tu
+      cuenta</a></p>
+  </form>
+</div>

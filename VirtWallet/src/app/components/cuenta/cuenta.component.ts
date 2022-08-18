@@ -10,14 +10,13 @@ import {Router} from "@angular/router";
 })
 export class CuentaComponent implements OnInit {
 
-  cuentas: any;
-  // cuentas: Cuenta[];
+  cuentas = [];
 
   constructor(private cuentaService: DataCuentaService, private router: Router) {
+    this.getAllCuentas();
   }
 
   ngOnInit(): void {
-    this.getAllCuentas();
   }
 
   private getAllCuentas() {

@@ -1,6 +1,6 @@
 package com.asj.virtwalletapirest.repository;
 
-import com.asj.virtwalletapirest.domain.Cuenta;
+import com.asj.virtwalletapirest.entities.Cuenta;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;

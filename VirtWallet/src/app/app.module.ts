@@ -20,12 +20,14 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'transfer', component: TransferComponent},
+  {path: 'transfer/:dni', component: TransferComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'home', component: HomeComponent},
-  //** indica que cualquier cosa distinta a lo anterior irá aquí
+  {path: 'home/:dni', component: HomeComponent},
+  {path: 'cuentas', component: CuentaComponent},
+  {path: 'transacciones', component: TransaccionesComponent},
   {path: '**', component: ErrorComponent}
 ];
-
 
 @NgModule({
   declarations: [

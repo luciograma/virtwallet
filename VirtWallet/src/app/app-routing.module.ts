@@ -17,7 +17,6 @@ const routes: Routes = [
   {path: 'home/:dni', component: HomeComponent},
   {path: 'cuentas', component: CuentaComponent},
   {path: 'transacciones', component: TransaccionesComponent}
-
 ];
 
 @NgModule({

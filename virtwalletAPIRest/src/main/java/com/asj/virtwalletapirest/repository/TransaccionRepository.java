@@ -1,7 +1,7 @@
 package com.asj.virtwalletapirest.repository;
 
-import com.asj.virtwalletapirest.domain.Cuenta;
-import com.asj.virtwalletapirest.domain.Transaccion;
+import com.asj.virtwalletapirest.entities.Cuenta;
+import com.asj.virtwalletapirest.entities.Transaccion;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface TransaccionRepository extends PagingAndSortingRepository<Transaccion, Long> {

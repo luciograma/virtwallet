@@ -5,7 +5,6 @@
       <ul>
         <li class="nav"><a class="outline" routerLinkActive="active" routerLink="transfer" (click)="transferir()">Transferir</a></li>
         <li class="nav"><a class="outline" routerLinkActive="active" routerLink="login" (click)="cerrarSesion()">Cerrar Sesion</a></li>
-        <!--        <li class="nav" *ngIf="logged"><a class="outline" routerLinkActive="active" routerLink="/login">Cerrar Sesion</a></li>-->
       </ul>
     </nav>
   </div>
@@ -17,14 +16,14 @@
       <div class="col-sm">
         <div class="showcase-text">
           <h1>Caja de ahorro en pesos</h1>
-          <p class="supporting-text"> Saldo: ${{cuenta.saldo?.toString()}}.-</p>
+          <p class="supporting-text"> Saldo: ${{cuenta?.saldo.toString()}}.-</p>
         </div>
         <hr>
         <div class="showcase-detail">
-          <p class="little-info">CBU: {{cuenta.cbu}}<br>
-            ALIAS: {{cuenta.alias}}<br>
-            TITULAR: {{cuenta.nombre + ' '+ cuenta.apellido}}<br>
-            DNI: {{cuenta.dni}}<br>
+          <p class="little-info">CBU: {{cuenta?.cbu}}<br>
+            ALIAS: {{cuenta?.alias}}<br>
+            TITULAR: {{cuenta?.nombre + ' '+ cuenta?.apellido}}<br>
+            DNI: {{cuenta?.dni}}<br>
           </p>
         </div>
       </div>
@@ -41,10 +40,10 @@
           </thead>
           <tbody>
           <tr *ngFor="let transaccion of transacciones">
-            <th scope="row">{{transaccion.fecha}}</th>
-            <td>{{transaccion.id}}</td>
-            <td>{{transaccion.concepto}}</td>
-            <td>${{transaccion.importe}},-</td>
+            <th scope="row">{{transaccion?.fecha}}</th>
+            <td>{{transaccion?.id}}</td>
+            <td>{{transaccion?.concepto}}</td>
+            <td>${{transaccion?.importe}},-</td>
           </tr>
           </tbody>
         </table>

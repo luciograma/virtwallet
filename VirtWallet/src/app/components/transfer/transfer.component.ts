@@ -52,40 +52,83 @@ export class TransferComponent implements OnInit {
   transferir() {
     if (this.transferForm.valid) {
       //Obtengo cuenta destino
-      this.obtenerCuentaDestino();
+      this.realizarTransaccion();
       //Acredito y debito el saldo de las respectivas cuentas
-      if (this.cuentaDestino !== undefined) {
-        this.acreditar(this.transferForm.value.importe);
-        this.debitar(this.transferForm.value.importe);
-        //Registro transaccion
-        this.registrarTransaccion();
-        this.cuentaService.actualizarCuenta(this.cuentaOrigen.dni, this.cuentaOrigen);
-        this.cuentaService.actualizarCuenta(this.cuentaDestino.dni, this.cuentaDestino);
-        console.log("Transaccion realizada con exito!")
-        //TODO revisar porqué realiza todo esto sin persistir
-      } else {
-        console.log("La transaccion no ha sido realizada")
-      }
-      this.volverHome();
+      // if (this.cuentaDestino !== undefined) {
+      //   this.acreditar(this.transferForm.value.importe);
+      //   this.debitar(this.transferForm.value.importe);
+      //   //Registro transaccion
+      //   this.registrarTransaccion();
+      //   this.cuentaService.actualizarCuenta(this.cuentaOrigen.dni, this.cuentaOrigen);
+      //   this.cuentaService.actualizarCuenta(this.cuentaDestino.dni, this.cuentaDestino);
+      //   console.log("Transaccion realizada con exito!")
+      // } else {
+      //   console.log("La transaccion no ha sido realizada")
+      // }
+
     }
   }
 
+  private realizarTransaccion() {
+    // TODO activar cuando funcione con cbu
+    // if (this.transferForm.value.alias !== null) {
+    //   this.cuentaService.obtenerCuentaPorAlias(this.transferForm.value.alias).subscribe(dato => {
+    //     this.cuentaDestino = dato.datos;
+    //     this.proceso();
+    //     console.log("Cuenta destino: "+this.cuentaDestino);
+    //   });
+    // }
+    if (this.transferForm.value.cbu !== null) {
+      this.cuentaService.obtenerCuentaPorCbu(this.transferForm.value.cbu).subscribe(dato => {
+        this.cuentaDestino = dato.datos;
+        this.proceso();
+        console.log("Cuenta destino: "+this.cuentaDestino);
+      });
+    }
+    else {
+      console.log("No se pudo encontrar la cuenta destino");
+    }
+  }
+
+  private proceso(){
+    if (this.cuentaDestino !== undefined) {
+      this.acreditar(this.transferForm.value.importe);
+      this.debitar(this.transferForm.value.importe);
+      //Registro transaccion
+      this.registrarTransaccion();
+      this.cuentaService.actualizarCuenta(this.cuentaOrigen.dni, this.cuentaOrigen);
+      this.cuentaService.actualizarCuenta(this.cuentaDestino.dni, this.cuentaDestino);
+      console.log("Transaccion realizada con exito!")
+    } else {
+      console.log("La transaccion no ha sido realizada")
+    }
+    this.volverHome();
+  }
+
   private acreditar(importe: number) {
+    console.log("Saldo cuentaDestino: "+this.cuentaDestino.saldo);
     this.cuentaDestino.saldo = this.cuentaDestino.saldo + importe;
+    console.log("Saldo destino actualizado: "+this.cuentaDestino.saldo);
   }
 
   private debitar(importe: number) {
     if (this.cuentaOrigen.saldo >= importe) {
+      console.log("Saldo cuentaOrigen: "+this.cuentaOrigen.saldo);
       this.cuentaOrigen.saldo = this.cuentaOrigen.saldo - importe;
-      return true;
+      console.log("Saldo origen actualizado: "+this.cuentaOrigen.saldo);
     }
-    return false;
   }
 
-  registrarTransaccion() {
-    this.crearTransaccion();
+  private registrarTransaccion() {
+    // this.crearTransaccion();
+    this.transaccion.fecha = new Date().toLocaleString();
+    this.transaccion.concepto = this.transferForm.value.concepto;
+    this.transaccion.importe = this.transferForm.value.importe;
+    this.transaccion.cuentaOrigen = this.cuentaOrigen;
+    this.transaccion.cuentaDestino = this.cuentaDestino;
+
     //Creo un array nuevo de transacciones = a las transacciones de cuenta origen y agrego la nueva
-    let transaccionesNuevasOrigen: Transaccion[];
+    let transaccionesNuevasOrigen: Transaccion[] = [];
     if (this.cuentaDestino.transaccionesRecibidas == undefined) {
       this.cuentaDestino.transaccionesRecibidas = [];
     }
@@ -93,10 +136,12 @@ export class TransferComponent implements OnInit {
       this.cuentaOrigen.transaccionesEnviadas = [];
     }
     this.cuentaOrigen.transaccionesEnviadas.push(this.transaccion);
+
     //Creo un array nuevo de transacciones = a las transacciones de cuenta destino y agrego la nueva
-    let transaccionesNuevasDestino: Transaccion[];
+    let transaccionesNuevasDestino: Transaccion[] = [];
     this.cuentaDestino.transaccionesRecibidas.push(this.transaccion);
     this.cuentaOrigen.transaccionesRecibidas = transaccionesNuevasDestino;
+
     //Persisto los cambios
     console.log(this.cuentaOrigen.transaccionesEnviadas);
     console.log(this.cuentaDestino.transaccionesRecibidas);
@@ -109,31 +154,20 @@ export class TransferComponent implements OnInit {
   }
 
   private crearTransaccion() {
+
     this.transaccion.fecha = new Date().toLocaleString();
     this.transaccion.concepto = this.transferForm.value.concepto;
     this.transaccion.importe = this.transferForm.value.importe;
     this.transaccion.cuentaOrigen = this.cuentaOrigen;
     this.transaccion.cuentaDestino = this.cuentaDestino;
+    // this.transaccion={
+    //   "fecha": new Date().toLocaleString(),
+    //   "concepto": this.transferForm.value.concepto,
+    //   "importe": this.transferForm.value.importe,
+    //   "cuentaOrigen":this.cuentaOrigen,
+    //   "cuentaDestino": this.cuentaDestino
+    // }
     console.log("Transaccion a emitir:")
     console.log(this.transaccion);
-  }
-
-  private obtenerCuentaDestino() {
-    if (this.transferForm.value.alias !== null) {
-      this.cuentaService.obtenerCuentaPorAlias(this.transferForm.value.alias).subscribe(dato => {
-        this.cuentaDestino = dato.datos;
-        console.log("Cuenta destino: ");
-        console.log(this.cuentaDestino);
-      });
-    }
-    if (this.transferForm.value.cbu !== null) {
-      this.cuentaService.obtenerCuentaPorCbu(this.transferForm.value.cbu).subscribe(dato => {
-        this.cuentaDestino = dato.datos;
-        console.log("Cuenta destino: ");
-        console.log(this.cuentaDestino);
-      });
-    } else {
-      console.log("No se pudo encontrar la cuenta destino");
-    }
   }
 }

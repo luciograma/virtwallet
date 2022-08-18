@@ -19,7 +19,7 @@ export class TransaccionService {
     return this.http.get<any>(`${this.baseURL}`);
   }
 
-  agregarTransaccion(transaccion:Transaccion):Observable<Object>{
+  agregarTransaccion(transaccion):Observable<Object>{
     return this.http.post(`${this.baseURL}`,transaccion);
   }
 

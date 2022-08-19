@@ -20,8 +20,8 @@ export class TransferComponent implements OnInit {
   importe: number;
   concepto: string;
 
-  cuentaOrigen: Cuenta = new Cuenta();
-  cuentaDestino: Cuenta = new Cuenta();
+  cuentaOrigen: Cuenta;
+  cuentaDestino: Cuenta;
   transaccion: Transaccion = new Transaccion();
 
   constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder,
@@ -51,53 +51,41 @@ export class TransferComponent implements OnInit {
 
   transferir() {
     if (this.transferForm.valid) {
-      //Obtengo cuenta destino
       this.realizarTransaccion();
-      //Acredito y debito el saldo de las respectivas cuentas
-      // if (this.cuentaDestino !== undefined) {
-      //   this.acreditar(this.transferForm.value.importe);
-      //   this.debitar(this.transferForm.value.importe);
-      //   //Registro transaccion
-      //   this.registrarTransaccion();
-      //   this.cuentaService.actualizarCuenta(this.cuentaOrigen.dni, this.cuentaOrigen);
-      //   this.cuentaService.actualizarCuenta(this.cuentaDestino.dni, this.cuentaDestino);
-      //   console.log("Transaccion realizada con exito!")
-      // } else {
-      //   console.log("La transaccion no ha sido realizada")
-      // }
-
     }
   }
 
   private realizarTransaccion() {
     // TODO activar cuando funcione con cbu
-    // if (this.transferForm.value.alias !== null) {
+    //  if (this.transferForm.value.alias !== null) {
     //   this.cuentaService.obtenerCuentaPorAlias(this.transferForm.value.alias).subscribe(dato => {
     //     this.cuentaDestino = dato.datos;
-    //     this.proceso();
+    //     this.procesar();
     //     console.log("Cuenta destino: "+this.cuentaDestino);
     //   });
-    // }
+    //   }
     if (this.transferForm.value.cbu !== null) {
       this.cuentaService.obtenerCuentaPorCbu(this.transferForm.value.cbu).subscribe(dato => {
         this.cuentaDestino = dato.datos;
-        this.proceso();
+        this.procesar();
         console.log("Cuenta destino: "+this.cuentaDestino);
       });
     }
-    else {
-      console.log("No se pudo encontrar la cuenta destino");
-    }
   }
 
-  private proceso(){
+  private procesar(){
     if (this.cuentaDestino !== undefined) {
       this.acreditar(this.transferForm.value.importe);
       this.debitar(this.transferForm.value.importe);
       //Registro transaccion
       this.registrarTransaccion();
-      this.cuentaService.actualizarCuenta(this.cuentaOrigen.dni, this.cuentaOrigen);
-      this.cuentaService.actualizarCuenta(this.cuentaDestino.dni, this.cuentaDestino);
+      //TODO llevar al back a un solo servicio
+      this.cuentaService.actualizarCuenta(this.cuentaOrigen.dni, this.cuentaOrigen).subscribe(resp=>{
+        console.log("Cuenta origen actualizada");
+      });
+      this.cuentaService.actualizarCuenta(this.cuentaDestino.dni, this.cuentaDestino).subscribe(resp=>{
+        console.log("Cuenta origen actualizada");
+      });
       console.log("Transaccion realizada con exito!")
     } else {
       console.log("La transaccion no ha sido realizada")
@@ -121,53 +109,33 @@ export class TransferComponent implements OnInit {
 
   private registrarTransaccion() {
     // this.crearTransaccion();
-    this.transaccion.fecha = new Date().toLocaleString();
+    this.transaccion.fecha = new Date();
     this.transaccion.concepto = this.transferForm.value.concepto;
     this.transaccion.importe = this.transferForm.value.importe;
-    this.transaccion.cuentaOrigen = this.cuentaOrigen;
-    this.transaccion.cuentaDestino = this.cuentaDestino;
+    // this.transaccion.cuentaOrigen = this.cuentaOrigen;
+    // this.transaccion.cuentaDestino = this.cuentaDestino;
 
     //Creo un array nuevo de transacciones = a las transacciones de cuenta origen y agrego la nueva
-    let transaccionesNuevasOrigen: Transaccion[] = [];
-    if (this.cuentaDestino.transaccionesRecibidas == undefined) {
-      this.cuentaDestino.transaccionesRecibidas = [];
+    if (this.cuentaDestino.transferenciasRecibidas == undefined) {
+      this.cuentaDestino.transferenciasRecibidas = [];
     }
-    if (this.cuentaOrigen.transaccionesEnviadas == undefined) {
-      this.cuentaOrigen.transaccionesEnviadas = [];
+    if (this.cuentaOrigen.transferenciasEnviadas == undefined) {
+      this.cuentaOrigen.transferenciasEnviadas = [];
     }
-    this.cuentaOrigen.transaccionesEnviadas.push(this.transaccion);
 
-    //Creo un array nuevo de transacciones = a las transacciones de cuenta destino y agrego la nueva
-    let transaccionesNuevasDestino: Transaccion[] = [];
-    this.cuentaDestino.transaccionesRecibidas.push(this.transaccion);
-    this.cuentaOrigen.transaccionesRecibidas = transaccionesNuevasDestino;
+    this.cuentaOrigen.transferenciasEnviadas.push(this.transaccion);
+    this.cuentaDestino.transferenciasRecibidas.push(this.transaccion);
 
     //Persisto los cambios
-    console.log(this.cuentaOrigen.transaccionesEnviadas);
-    console.log(this.cuentaDestino.transaccionesRecibidas);
-    this.transaccionService.agregarTransaccion(this.transaccion);
-    console.log("Transaccion agregada")
+    console.log(this.cuentaOrigen.transferenciasEnviadas);
+    console.log(this.cuentaDestino.transferenciasRecibidas);
+    this.transaccionService.agregarTransaccion(this.transaccion).subscribe(resp=>{
+      console.log("Transaccion agregada")
+    });
   }
 
   volverHome() {
     this.router.navigate(['home/' + this.dni]);
   }
 
-  private crearTransaccion() {
-
-    this.transaccion.fecha = new Date().toLocaleString();
-    this.transaccion.concepto = this.transferForm.value.concepto;
-    this.transaccion.importe = this.transferForm.value.importe;
-    this.transaccion.cuentaOrigen = this.cuentaOrigen;
-    this.transaccion.cuentaDestino = this.cuentaDestino;
-    // this.transaccion={
-    //   "fecha": new Date().toLocaleString(),
-    //   "concepto": this.transferForm.value.concepto,
-    //   "importe": this.transferForm.value.importe,
-    //   "cuentaOrigen":this.cuentaOrigen,
-    //   "cuentaDestino": this.cuentaDestino
-    // }
-    console.log("Transaccion a emitir:")
-    console.log(this.transaccion);
-  }
 }

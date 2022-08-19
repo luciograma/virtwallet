@@ -2,7 +2,7 @@ import {Cuenta} from "./cuenta";
 
 export class Transaccion {
 
-  fecha: string;
+  fecha: Date;
   id: number;
   concepto: string;
   importe: number;

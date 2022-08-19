@@ -43,17 +43,18 @@ public class CuentaServiceImp implements CuentaService {
     }
 
     @Override
-    public Cuenta update(Cuenta cuentaModificar) {
-        Optional<Cuenta> co =getCuentaByDni(cuentaModificar.getDni());
+    public Cuenta update(String dni, Cuenta cuentaModificar) {
+        Optional<Cuenta> co = this.repository.findCuentaByDni(dni);
         if (!co.isPresent()) {
             //TODO corregir tipo de exception
-            throw new RuntimeException();
+            throw new RuntimeException("Cuenta inexistente");
+        } else {
+            Cuenta cuenta = co.get();
+            cuenta.setSaldo(cuentaModificar.getSaldo());
+            cuenta.setTransferenciasEnviadas(cuentaModificar.getTransferenciasEnviadas());
+            cuenta.setTransferenciasRecibidas(cuentaModificar.getTransferenciasRecibidas());
+            return this.repository.save(cuenta);
         }
-        Cuenta cuenta = co.get();
-        cuenta.setSaldo(cuentaModificar.getSaldo());
-        cuenta.setTransferenciasEnviadas(cuentaModificar.getTransferenciasEnviadas());
-        cuenta.setTransferenciasRecibidas(cuentaModificar.getTransferenciasRecibidas());
-        return this.repository.save(cuenta);
     }
 
     @Override

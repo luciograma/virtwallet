@@ -1,5 +1,5 @@
 <div class="signupFrm">
-  <form [formGroup]="loginForm" class="form" (ngSubmit)="login()">
+  <form [formGroup]="loginForm" class="form">
     <img id="img" src="https://icongr.am/entypo/wallet.svg?size=128&color=151e3f" height="75" alt="Logo BilleterApp">
     <h1 class="title">VirtWallet</h1>
     <div class="warning" *ngIf="loginForm.controls['dni'].errors && loginForm.controls['dni'].dirty">
@@ -30,12 +30,12 @@
     <div class="loginContainer">
       <button type="submit" class="submitBtn" value="Inicia sesión" (click)="login()">Inicia sesión</button>
     </div>
-    <div class="loginContainer">
-      <button type="button" class="submitBtn" (click)="verCuentas()">Ver cuentas</button>
-    </div>
-    <div class="loginContainer">
-      <button type="button" class="submitBtn" (click)="verTransacciones()">Ver transacciones</button>
-    </div>
+<!--    <div class="loginContainer">-->
+<!--      <button type="button" class="submitBtn" (click)="verCuentas()">Ver cuentas</button>-->
+<!--    </div>-->
+<!--    <div class="loginContainer">-->
+<!--      <button type="button" class="submitBtn" (click)="verTransacciones()">Ver transacciones</button>-->
+<!--    </div>-->
     <p>¿Aún no estás registrado? <a routerLinkActive="active" routerLink="register" (click)="irRegister()">Creá tu
       cuenta</a></p>
   </form>

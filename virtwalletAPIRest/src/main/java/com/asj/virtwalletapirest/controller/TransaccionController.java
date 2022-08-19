@@ -21,7 +21,7 @@ public class TransaccionController {
     @Autowired
     private TransaccionService transaccionService;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<?> getAll() {
         List<Transaccion> transacciones = (List<Transaccion>) this.transaccionService.getAll();
         Map<String, Object> mensajeBody = new HashMap<>();

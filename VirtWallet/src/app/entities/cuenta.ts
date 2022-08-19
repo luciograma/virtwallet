@@ -8,8 +8,8 @@ export class Cuenta {
   alias: string;
   dni: string;
   saldo: number;
-  transaccionesEnviadas: Transaccion[];
-  transaccionesRecibidas: Transaccion[];
+  transferenciasRecibidas: Transaccion[];
+  transferenciasEnviadas: Transaccion[];
   password: string;
 
 }

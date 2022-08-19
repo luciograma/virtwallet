@@ -21,7 +21,7 @@ export class DataCuentaService {
   }
 
   actualizarCuenta(dni:string, cuenta): Observable<Object>{
-    return this.http.put(`${this.baseURL}/${dni}`, dni, cuenta);
+    return this.http.put(`${this.baseURL}/${dni}`, cuenta);
   }
 
   obtenerCuentaPorDni(dni:string):Observable<any>{

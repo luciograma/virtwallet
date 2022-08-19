@@ -90,16 +90,19 @@ public class CuentaController {
     @PutMapping("/{dni}")
     public ResponseEntity<?> update(@PathVariable String dni, @RequestBody Cuenta cuentaModificada) {
         Map<String, Object> mensajeBody = new HashMap<>();
-        if (!this.cuentaService.getCuentaByDni(dni).isPresent()) {
-            mensajeBody.put("estado", Boolean.FALSE);
-            mensajeBody.put("mensaje", "La cuenta no existe");
-            return ResponseEntity.badRequest().body(mensajeBody);
-        } else {
-            mensajeBody.put("estado", Boolean.TRUE);
-            Cuenta cuentaModificar = cuentaModificada;
-            mensajeBody.put("datos", this.cuentaService.update(cuentaModificar));
-        }
+        mensajeBody.put("estado", Boolean.TRUE);
+        mensajeBody.put("datos", this.cuentaService.update(dni, cuentaModificada));
         return ResponseEntity.ok(mensajeBody);
+//        if (!this.cuentaService.getCuentaByDni(dni).isPresent()) {
+//            mensajeBody.put("estado", Boolean.FALSE);
+//            mensajeBody.put("mensaje", "La cuenta no existe");
+//            return ResponseEntity.badRequest().body(mensajeBody);
+//        } else {
+//            mensajeBody.put("estado", Boolean.TRUE);
+//            Cuenta cuentaModificar = cuentaModificada;
+//            mensajeBody.put("datos", this.cuentaService.update(cuentaModificar));
+//        }
+//        return ResponseEntity.ok(mensajeBody);
     }
 
     private ResponseEntity<?> getResponseEntity(Map<String, Object> mensajeBody, Optional<Cuenta> cuentaOptional) {

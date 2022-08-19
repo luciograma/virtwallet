@@ -14,5 +14,5 @@ public interface CuentaService {
 
     Optional<Cuenta> getCuentaByCbu(String cbu);
 
-    Cuenta update(Cuenta cuentaModificar);
+    Cuenta update(String dni, Cuenta cuentaModificar);
 }
